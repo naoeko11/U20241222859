@@ -1,0 +1,79 @@
+interface IVivienda {
+    void aumentarPrecio(double porcentaje);
+}
+
+class Vivienda implements IVivienda {
+    protected String direccion;
+    protected double precio;
+
+    public Vivienda(String direccion, double precio) {
+        this.direccion = direccion;
+        this.precio = precio;
+    }
+
+    @Override
+    public void aumentarPrecio(double porcentaje) {
+        precio += precio * porcentaje / 100;
+    }
+
+    public double calcularImpuesto() {
+        return precio * 0.01; // Impuesto base del 1%
+    }
+}
+
+class Piso extends Vivienda {
+    private int numeroHabitaciones;
+
+    public Piso(String direccion, double precio, int numeroHabitaciones) {
+        super(direccion, precio);
+        this.numeroHabitaciones = numeroHabitaciones;
+    }
+
+    @Override
+    public double calcularImpuesto() {
+        return precio * 0.015; // Impuesto específico para pisos del 1.5%
+    }
+}
+
+class Adosado extends Vivienda {
+    private double jardin;
+
+    public Adosado(String direccion, double precio, double jardin) {
+        super(direccion, precio);
+        this.jardin = jardin;
+    }
+
+    @Override
+    public double calcularImpuesto() {
+        return precio * 0.02; // Impuesto específico para adosados del 2%
+    }
+}
+
+class Chalet extends Vivienda {
+    private double terreno;
+
+    public Chalet(String direccion, double precio, double terreno) {
+        super(direccion, precio);
+        this.terreno = terreno;
+    }
+
+    @Override
+    public double calcularImpuesto() {
+        return precio * 0.025; // Impuesto específico para chalets del 2.5%
+    }
+}
+
+public class PruebaVivienda {
+    public static void main(String[] args) {
+        Piso piso = new Piso("Calle Mayor 1", 100000, 3);
+        Adosado adosado = new Adosado("Avenida del Parque 10", 150000, 50);
+        Chalet chalet = new Chalet("Camino del Bosque", 250000, 300);
+
+        System.out.println("Impuesto del piso: $" + piso.calcularImpuesto());
+        System.out.println("Impuesto del adosado: $" + adosado.calcularImpuesto());
+        System.out.println("Impuesto del chalet: $" + chalet.calcularImpuesto());
+
+        piso.aumentarPrecio(10); // Incremento del 10%
+        System.out.println("Nuevo precio del piso: $" + piso.precio);
+    }
+}
