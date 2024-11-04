@@ -1,0 +1,48 @@
+class Cuenta {
+    protected String numeroCuenta;
+    protected double saldo;
+
+    public Cuenta(String numeroCuenta, double saldo) {
+        this.numeroCuenta = numeroCuenta;
+        this.saldo = saldo;
+    }
+
+    public void ingresar(double monto) {
+        saldo += monto;
+    }
+
+    public void retirar(double monto) {
+        saldo -= monto;
+    }
+}
+
+class CuentaCorriente extends Cuenta {
+    private double maximoRetirable;
+
+    public CuentaCorriente(String numeroCuenta, double saldo, double maximoRetirable) {
+        super(numeroCuenta, saldo);
+        this.maximoRetirable = maximoRetirable;
+    }
+
+    @Override
+    public void retirar(double monto) {
+        if (monto <= maximoRetirable && monto <= saldo) super.retirar(monto);
+    }
+}
+
+class CuentaAhorro extends Cuenta {
+    private double saldoMinimo;
+
+    public CuentaAhorro(String numeroCuenta, double saldo, double saldoMinimo) {
+        super(numeroCuenta, saldo);
+        this.saldoMinimo = saldoMinimo;
+    }
+}
+
+public class PruebaCuenta {
+    public static void main(String[] args) {
+        CuentaCorriente cc = new CuentaCorriente("1111", 1000, 500);
+        cc.retirar(200);
+        System.out.println("Saldo después de retiro: " + cc.saldo);
+    }
+}
