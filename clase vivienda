@@ -1,0 +1,34 @@
+public class Vivienda {
+    private String calle;
+    private int numero;
+    private double precio;
+    private int superficie;
+    private boolean conGarage;
+
+    // Constructor por defecto
+    public Vivienda() {}
+
+    // Constructor parametrizado
+    public Vivienda(String calle, int numero, double precio, int superficie, boolean conGarage) {
+        this.calle = calle;
+        this.numero = numero;
+        this.precio = precio;
+        this.superficie = superficie;
+        this.conGarage = conGarage;
+    }
+
+    // Métodos para acceder a los atributos y modificar valores
+    public String getCalle() { return calle; }
+    public int getNumero() { return numero; }
+    public double getPrecio() { return precio; }
+    public int getSuperficie() { return superficie; }
+    public boolean tieneGarage() { return conGarage; }
+
+    public static void main(String[] args) {
+        Vivienda casa = new Vivienda("Avenida Siempreviva", 123, 50000, 120, true);
+        System.out.println("Dirección: " + casa.getCalle() + " " + casa.getNumero());
+        System.out.println("Precio: $" + casa.getPrecio());
+        System.out.println("Superficie: " + casa.getSuperficie() + " m2");
+        System.out.println("¿Con garage? " + casa.tieneGarage());
+    }
+}
