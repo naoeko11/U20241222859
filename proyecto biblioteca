@@ -1,0 +1,154 @@
+import java.util.ArrayList;
+import java.util.Date;
+
+abstract class Material {
+    protected String codigo;
+    protected String titulo;
+    protected String autor;
+    protected boolean prestado;
+
+    public Material(String codigo, String titulo, String autor) {
+        this.codigo = codigo;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.prestado = false;
+    }
+
+    public boolean isPrestado() {
+        return prestado;
+    }
+
+    public void prestar() {
+        if (!prestado) {
+            prestado = true;
+            System.out.println(titulo + " ha sido prestado.");
+        } else {
+            System.out.println(titulo + " ya está prestado.");
+        }
+    }
+
+    public void devolver() {
+        if (prestado) {
+            prestado = false;
+            System.out.println(titulo + " ha sido devuelto.");
+        } else {
+            System.out.println(titulo + " no estaba prestado.");
+        }
+    }
+
+    public abstract void mostrarInformacion();
+}
+
+class Libro extends Material {
+    private int numPaginas;
+
+    public Libro(String codigo, String titulo, String autor, int numPaginas) {
+        super(codigo, titulo, autor);
+        this.numPaginas = numPaginas;
+    }
+
+    @Override
+    public void mostrarInformacion() {
+        System.out.println("Libro: " + titulo + ", Autor: " + autor + ", Páginas: " + numPaginas + ", Código: " + codigo);
+    }
+}
+
+class Disco extends Material {
+    private double duracion; // duración en minutos
+
+    public Disco(String codigo, String titulo, String autor, double duracion) {
+        super(codigo, titulo, autor);
+        this.duracion = duracion;
+    }
+
+    @Override
+    public void mostrarInformacion() {
+        System.out.println("Disco: " + titulo + ", Autor: " + autor + ", Duración: " + duracion + " min, Código: " + codigo);
+    }
+}
+
+class Biblioteca {
+    private ArrayList<Material> catalogo;
+
+    public Biblioteca() {
+        catalogo = new ArrayList<>();
+    }
+
+    public void agregarMaterial(Material material) {
+        catalogo.add(material);
+    }
+
+    public void prestarMaterial(String codigo) {
+        for (Material material : catalogo) {
+            if (material.codigo.equals(codigo)) {
+                material.prestar();
+                return;
+            }
+        }
+        System.out.println("Material con código " + codigo + " no encontrado.");
+    }
+
+    public void devolverMaterial(String codigo) {
+        for (Material material : catalogo) {
+            if (material.codigo.equals(codigo)) {
+                material.devolver();
+                return;
+            }
+        }
+        System.out.println("Material con código " + codigo + " no encontrado.");
+    }
+
+    public void mostrarMaterialDisponible() {
+        System.out.println("Materiales disponibles:");
+        for (Material material : catalogo) {
+            if (!material.isPrestado()) {
+                material.mostrarInformacion();
+            }
+        }
+    }
+
+    public void mostrarCatalogoCompleto() {
+        System.out.println("Catálogo completo de la biblioteca:");
+        for (Material material : catalogo) {
+            material.mostrarInformacion();
+        }
+    }
+}
+
+public class PruebaBiblioteca {
+    public static void main(String[] args) {
+        Biblioteca biblioteca = new Biblioteca();
+
+        // Crear algunos materiales
+        Libro libro1 = new Libro("L001", "El Quijote", "Miguel de Cervantes", 850);
+        Libro libro2 = new Libro("L002", "Cien Años de Soledad", "Gabriel García Márquez", 417);
+        Disco disco1 = new Disco("D001", "The Dark Side of the Moon", "Pink Floyd", 43.0);
+        Disco disco2 = new Disco("D002", "Thriller", "Michael Jackson", 42.5);
+
+        // Agregar materiales a la biblioteca
+        biblioteca.agregarMaterial(libro1);
+        biblioteca.agregarMaterial(libro2);
+        biblioteca.agregarMaterial(disco1);
+        biblioteca.agregarMaterial(disco2);
+
+        // Mostrar catálogo completo
+        biblioteca.mostrarCatalogoCompleto();
+
+        // Prestar y devolver materiales
+        biblioteca.prestarMaterial("L001");
+        biblioteca.prestarMaterial("D002");
+
+        // Mostrar materiales disponibles
+        biblioteca.mostrarMaterialDisponible();
+
+        // Devolver un material
+        biblioteca.devolverMaterial("L001");
+        
+        // Intentar prestar un material ya prestado
+        biblioteca.prestarMaterial("D002");
+
+        // Mostrar nuevamente los materiales disponibles
+        biblioteca.mostrarMaterialDisponible();
+    }
+}
+
