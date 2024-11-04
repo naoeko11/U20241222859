@@ -1,0 +1,38 @@
+class Empleado {
+    protected String nombre;
+    protected String dni;
+    protected int edad;
+    protected boolean casado;
+    protected double salario;
+
+    public Empleado(String nombre, String dni, int edad, boolean casado, double salario) {
+        this.nombre = nombre;
+        this.dni = dni;
+        this.edad = edad;
+        this.casado = casado;
+        this.salario = salario;
+    }
+}
+
+class Programador extends Empleado {
+    private int lineasDeCodigoPorHora;
+    private String lenguajeDominante;
+
+    public Programador(String nombre, String dni, int edad, boolean casado, double salario,
+                       int lineasDeCodigoPorHora, String lenguajeDominante) {
+        super(nombre, dni, edad, casado, salario);
+        this.lineasDeCodigoPorHora = lineasDeCodigoPorHora;
+        this.lenguajeDominante = lenguajeDominante;
+    }
+
+    public String clasificacion() {
+        return edad < 30 ? "Junior" : "Senior";
+    }
+}
+
+public class PruebaEmpleado {
+    public static void main(String[] args) {
+        Programador p = new Programador("Juan", "12345678", 25, false, 5000, 500, "Java");
+        System.out.println("Clasificación del programador: " + p.clasificacion());
+    }
+}
