@@ -1,0 +1,28 @@
+public class Asignatura {
+    private int creditos;
+    private String nombre;
+
+    // Constructor
+    public Asignatura(int creditos, String nombre) {
+        if (creditos < 0) {
+            System.out.println("Créditos no pueden ser negativos");
+            this.creditos = 0;
+        } else {
+            this.creditos = creditos;
+        }
+        this.nombre = nombre;
+    }
+
+    public int getCreditos() { return creditos; }
+    public String getNombre() { return nombre; }
+
+    public void setCreditos(int creditos) {
+        if (creditos >= 0) this.creditos = creditos;
+    }
+
+    public static void main(String[] args) {
+        Asignatura asignatura = new Asignatura(3, "Matemáticas");
+        System.out.println("Asignatura: " + asignatura.getNombre());
+        System.out.println("Créditos: " + asignatura.getCreditos());
+    }
+}
