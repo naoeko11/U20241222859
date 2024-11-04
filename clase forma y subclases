@@ -1,0 +1,45 @@
+class Forma {
+    protected String nombre;
+    protected double posicionX, posicionY;
+    protected String color;
+
+    public double calcularArea() {
+        return 0;
+    }
+}
+
+class Triangulo extends Forma {
+    private double base, altura;
+
+    public Triangulo(double base, double altura) {
+        this.base = base;
+        this.altura = altura;
+    }
+
+    @Override
+    public double calcularArea() {
+        return (base * altura) / 2;
+    }
+}
+
+class Cuadrado extends Forma {
+    private double lado;
+
+    public Cuadrado(double lado) {
+        this.lado = lado;
+    }
+
+    @Override
+    public double calcularArea() {
+        return lado * lado;
+    }
+}
+
+public class PruebaForma {
+    public static void main(String[] args) {
+        Triangulo t = new Triangulo(4, 6);
+        Cuadrado c = new Cuadrado(3);
+        System.out.println("Área del triángulo: " + t.calcularArea());
+        System.out.println("Área del cuadrado: " + c.calcularArea());
+    }
+}
